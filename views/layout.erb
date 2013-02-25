@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>blackjack webapp</title>
+    <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/application.css">
+     <style type="text/css">
+      body {
+        padding-top: 20px;
+        padding-bottom: 40px;
+        background-image:url('/images/bg/office.png')
+      }
+
+    </style>
+
+  </head>
+  <body style="padding-top: 50px;">
+
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+            <ul class="nav">
+              <li><a href="/new_player">Start Over</a></li>
+              <li><a href="/game">Play Again</a></li>
+            </ul>
+        </div>
+      </div>
+    </div>
+
+  <div class="container">
+    <%if @error %>
+      <div class="alert alert-error"><%=@error%></div>
+    <% end %>
+    <%if @win %>
+      <div class="alert alert-success"><%=@win%></div>
+    <% end %>
+      <%= yield %>
+  </div>
+  </body>
+</html>

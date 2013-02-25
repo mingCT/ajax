@@ -1,0 +1,68 @@
+
+
+<h3>Welcome <%= session[:player_name] %>, let's play some Blackjack!</h3>
+
+<div class = "well">
+<h4>Dealer is showing:</h4>
+<ul>
+     <% for x in session[:dealer_cards] %>
+        <%= card_image(x) %>
+     <% end %>
+     <% if @hide_dealer_card %>
+       <img src='/images/cards/cover.jpg' height='160' width = '112'>
+     <%end %>
+</ul>
+Dealer's total is
+<%= calculate_total(session[:dealer_cards]) %>
+<br/>
+
+</div>
+
+
+<% if @show_dealer_button %>
+  <form action="/game/dealer_next_button" method='post'>
+    <input type="submit" class="btn btn-large btn-primary" value="view Dealer's next card">
+  </form>
+<% end %>
+<br/>
+
+<div class = "well">
+<h4>Player's cards:</h4>
+<ul>
+  <% for x in session[:player_cards] %>
+    <%= card_image(x) %>
+  <% end %>
+</ul>
+Your total is 
+<%= calculate_total(session[:player_cards]) %>
+</div>
+
+
+
+<% if @show_hit_or_stay_buttons %>
+
+  <form id="hit_form" action="/game/player/hitme" method='post'>
+    <input type="submit" class="btn btn-large btn-success" value="Hit Me">
+  </form>
+  <form id="stay_form" action="/game/player/istay" method='post'>
+    <input type="submit" class="btn btn-large btn-warning" value="I'll Stay">
+  </form>
+
+<% end %>
+
+
+<% if !@show_hit_or_stay_buttons  %> 
+<h4>How much are you willing to wager... up to <%= session[:player_purse] %></h4>
+<form action="/player_wager" method="post">
+  <input type="text" name="player_wager" value = "<%= params[:player_wager] || '' %>" />
+  <br/>
+  <input type="submit" class="btn btn-primary"/>
+</form>
+  <% end %>
+
+  <h4>Your wager:
+  <%= session[:player_wager] %><br/>
+  Your Purse:
+<%= session[:player_purse] %></h4>
+
+

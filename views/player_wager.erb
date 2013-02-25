@@ -1,0 +1,7 @@
+<h3>How much are you willing to wager... up to $1,000</h3>
+<form action="/player_wager" method="post">
+  <input type="text" name="player_wager" value = "<%= params[:player_wager] || '' %>" />
+  <br/>
+  <input type="submit" class="btn btn-primary"/>
+</form>
+<br/>
