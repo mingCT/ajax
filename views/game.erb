@@ -52,7 +52,7 @@ Your total is
 
 
 <% if !@show_hit_or_stay_buttons  %> 
-<h4>How much are you willing to wager... up to <%= session[:player_purse] %></h4>
+<h4>How much are you willing to wager... up to $<%= session[:player_purse] %></h4>
 <form action="/player_wager" method="post">
   <input type="text" name="player_wager" value = "<%= params[:player_wager] || '' %>" />
   <br/>
@@ -62,7 +62,7 @@ Your total is
 
   <h4>Your wager:
   <%= session[:player_wager] %><br/>
-  Your Purse:
+  Your bank:
 <%= session[:player_purse] %></h4>
 
 

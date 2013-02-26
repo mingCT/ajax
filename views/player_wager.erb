@@ -1,4 +1,4 @@
-<h3>How much are you willing to wager... up to $1,000</h3>
+<h3>How much are you willing to wager... up to $<%= session[:player_purse] %></h3>
 <form action="/player_wager" method="post">
   <input type="text" name="player_wager" value = "<%= params[:player_wager] || '' %>" />
   <br/>

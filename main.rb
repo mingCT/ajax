@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'sinatra'
-#require 'pry'
+#require 'sinatra-contrib'
+require 'pry'
 
 set :sessions, true
 
@@ -45,9 +46,8 @@ helpers do
     session[:player_purse] -= session[:player_wager].to_i
        if session[:player_purse] < 1 
           @error = "You're broke... hit the bricks." 
+          #halt erb :new_player
        end   
-
-    
   end
 end
 
@@ -88,11 +88,17 @@ get '/player_wager' do
 end
 
 post '/player_wager' do  
-  #if over 10,000
-  #if not integer
   session[:player_wager] = params[:player_wager].to_i
-  
-
+  if session[:player_wager].to_i > session[:player_purse].to_i
+    @error = "You don't have that much to bet"
+    halt erb :player_wager
+  elsif params[:player_wager].empty?
+    @error = "You must enter an actual amount"
+    halt erb :player_wager
+  elsif session[:player_wager] =~ /[^0-9]/  #this is borken
+    @error = "Amount must not contain invalid characters"
+    halt erb :player_wager
+  end
   redirect '/game'
 end
 
@@ -170,11 +176,10 @@ get '/game/showhand' do
 
    if dealer_total > player_total
     loser!
-    #session[:player_purse] -= session[:player_wager].to_i
    elsif dealer_total < player_total
     winner!
    else dealer_total = player_total
-    @win = "Its a tie"
+    @win = "Its a tie, it happens."
    end
   
   erb :game 
